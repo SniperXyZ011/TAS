@@ -1,0 +1,19 @@
+# Binaries
+*.exe
+*.out
+tas-server
+
+# Environment
+.env
+
+# Test coverage
+coverage.out
+coverage.html
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Docker volumes (local dev)
+postgres_data/
