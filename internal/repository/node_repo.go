@@ -92,7 +92,7 @@ func (r *pgNodeRepository) UpdateLastSeen(ctx context.Context, nodeID string) er
 
 func (r *pgNodeRepository) List(ctx context.Context) ([]*NodeRecord, error) {
 	rows, err := r.pool.Query(ctx, `
-		SELECT node_id, name, location, tier, is_active, created_at, last_seen_at
+		SELECT node_id, name, location, api_key_hash, tier, is_active, created_at, last_seen_at
 		FROM nodes ORDER BY created_at DESC
 	`)
 	if err != nil {
@@ -104,7 +104,7 @@ func (r *pgNodeRepository) List(ctx context.Context) ([]*NodeRecord, error) {
 	for rows.Next() {
 		var rec NodeRecord
 		if err := rows.Scan(
-			&rec.NodeID, &rec.Name, &rec.Location, &rec.Tier, &rec.IsActive, &rec.CreatedAt, &rec.LastSeenAt,
+			&rec.NodeID, &rec.Name, &rec.Location, &rec.APIKeyHash, &rec.Tier, &rec.IsActive, &rec.CreatedAt, &rec.LastSeenAt,
 		); err != nil {
 			return nil, fmt.Errorf("node_repo: list scan: %w", err)
 		}
