@@ -117,8 +117,8 @@ func main() {
 	mux.Handle("/api/v1/nodes/list",   adminStack)
 	mux.Handle("/api/v1/transactions", adminStack)
 
-	// Global recovery + logger for anything not matched
-	rootStack := middleware.Recovery(middleware.RequestLogger(mux))
+	// Global recovery + logger + CORS for anything not matched
+	rootStack := middleware.CORSMiddleware(middleware.Recovery(middleware.RequestLogger(mux)))
 
 	// ── HTTP Server ───────────────────────────────────────────────────────────
 	srv := &http.Server{
